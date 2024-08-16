@@ -4,13 +4,16 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class User(AbstractUser):
+    id = models.AutoField(primary_key=True)
     is_company = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
     email = models.CharField(max_length=100, unique=True)
 
 
 class Customer(models.Model):
-    pass
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True)
+    birth = models.DateField()
 
 
 class Company(models.Model):

@@ -7,6 +7,7 @@ from users.models import Company, Customer
 
 
 class Service(models.Model):
+    id = models.AutoField(primary_key=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     name = models.CharField(max_length=40)
     description = models.TextField()
