@@ -3,7 +3,10 @@ from django.contrib.auth import logout as django_logout
 
 
 def home(request):
-    return render(request, "main/home.html", {})
+    if request.user.is_authenticated:
+        return render(request, "main/home.html", {"user": request.user})
+    else :
+        return render(request, "main/home.html", {})
 
 
 def logout(request):
