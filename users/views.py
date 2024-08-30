@@ -1,57 +1,49 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from django.views.generic import CreateView, TemplateView
-
+from django.contrib import messages
 from .forms import CustomerSignUpForm, CompanySignUpForm, UserLoginForm
-from .models import User, Company, Customer
 
+def Customer_signup_view(request):
+    if request.method == 'POST':
+        form = CustomerSignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = CustomerSignUpForm()
+    return render(request, 'users/register_customer.html', {'form': form})
 
-def register(request):
-    return render(request, 'users/register.html')
+def Company_signup_view(request):
+    if request.method == 'POST':
+        form = CompanySignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('login')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = CompanySignUpForm()
+    return render(request, 'users/register_company.html', {'form': form})
 
-
-class CustomerSignUpView(CreateView):
-    model = User
-    form_class = CustomerSignUpForm
-    template_name = 'users/register_customer.html'
-
-    def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'customer'
-        return super().get_context_data(**kwargs)
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('/')
-
-
-class CompanySignUpView(CreateView):
-    model = User
-    form_class = CompanySignUpForm
-    template_name = 'users/register_company.html'
-
-    def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'company'
-        return super().get_context_data(**kwargs)
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('/')
-
-
-def LoginUserView(request):
+def Login_view(request):
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            user = authenticate(email=email, password=password)
+            user = authenticate(request, email=email, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('/')
+                return redirect('login')
+            else:
+                messages.error(request, 'Invalid email or password.')
     else:
         form = UserLoginForm()
     return render(request, 'users/login.html', {'form': form})
 
-    
+def register(request):
+    return render(request, 'users/register.html')

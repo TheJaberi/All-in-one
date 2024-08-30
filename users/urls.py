@@ -5,8 +5,8 @@ from .forms import UserLoginForm
 from . import views as v
 
 urlpatterns = [
-    path('', v.LoginUserView, name='login'),
-    path('company/', v.CompanySignUpView.as_view(), name='register_company'),
-    path('customer/', v.CustomerSignUpView.as_view(), name='register_customer'),
+    path('customer/', v.Customer_signup_view, name='customer_signup'),
+    path('company/', v.Company_signup_view, name='company_signup'),
+    path('', v.Login_view, name='login'),
     path('new/', v.register, name='new')
 ]
