@@ -72,7 +72,7 @@ class CompanySignUpForm(UserCreationForm):
     field_of_work = forms.ChoiceField(
         choices=[
             ('Air Conditioner', 'Air Conditioner'),
-            ('All in One', 'All in One'),
+            ('All In One', 'All In One'),
             ('Carpentry', 'Carpentry'),
             ('Electricity', 'Electricity'),
             ('Gardening', 'Gardening'),

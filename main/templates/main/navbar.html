@@ -6,6 +6,7 @@
             <a href="/services/">Services</a>
             <ul>
                 <li><a href="/services/air-conditioner">Air Conditioner</a></li>
+                <li><a href="/services/all-in-one">All-in-one</a></li>
                 <li><a href="/services/carpentry">Carpentry</a></li>
                 <li><a href="/services/electricity">Electricity</a></li>
                 <li><a href="/services/gardening">Gardening</a></li>
@@ -21,7 +22,6 @@
         
 
         {% if user.is_customer %}
-        <li><a href="/request">Request service</a></li>
             <li><a href="/customer/{{ request.user.username }}">Profile</a></li>
         {% elif user.is_company %}
             <li><a href="/services/create">Create service</a></li>

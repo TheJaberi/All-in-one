@@ -5,7 +5,15 @@
 
 {% block content %}
     <p class="title">Service Request Details</p>
+    {{service.name}} -- {{service.price_hour}}€/hour
+    <br>
+    <h5>by <a href="/company/{{service.company.user}}">{{service.company.user}}</a></h5>
+    <h3>{{service.field}}</h3>
+    <p style="text-align: left;">{{service.description}}</p>
+    <br>
+    
     <form method="POST">
+        {% csrf_token %}
         <button type="submit">Request</button>
     </form>
 {% endblock %}

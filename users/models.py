@@ -20,7 +20,7 @@ class Company(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True)
     field = models.CharField(max_length=70, choices=(('Air Conditioner', 'Air Conditioner'),
-                                                     ('All in One', 'All in One'),
+                                                     ('All In One', 'All In One'),
                                                      ('Carpentry', 'Carpentry'),
                                                      ('Electricity',
                                                       'Electricity'),

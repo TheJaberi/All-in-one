@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 
 from users.models import Company, Customer, User
 
-from .models import Service
+from .models import Service, Request_service
 from .forms import CreateNewService, RequestServiceForm
 
 
@@ -48,4 +48,16 @@ def service_field(request, field):
 
 
 def request_service(request, id):
-    return render(request, 'services/request_service.html', {})
+    if request.method == 'POST':
+        form = RequestServiceForm(request.POST)
+        if form.is_valid():
+            service = Service.objects.get(id=id)
+            customer = Customer.objects.get(user=request.user)
+            Request_service.objects.create(
+                service=service, customer=customer)
+            return HttpResponseRedirect('/services/')
+        else:
+            return render(request, 'services/request_service.html', {'form': form})
+    # get service details
+    service = Service.objects.get(id=id)
+    return render(request, 'services/request_service.html', {'service': service})

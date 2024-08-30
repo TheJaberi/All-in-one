@@ -14,7 +14,7 @@ class CreateNewService(forms.Form):
         super(CreateNewService, self).__init__(*args, **kwargs)
         # adding placeholders to form fields
         self.fields['field'].choices = [('Air Conditioner', 'Air Conditioner'),
-                                                     ('All in One', 'All in One'),
+                                                     ('All In One', 'All In One'),
                                                      ('Carpentry', 'Carpentry'),
                                                      ('Electricity',
                                                       'Electricity'),

@@ -8,4 +8,24 @@
         <p class="site_title">NetFix</p>
         <img class="home_logo" src="static/css/logo.png" alt="logo">
     </div>
+    <div>
+        <h3 style="text-align: center;"> Most requested services </h3>
+        <ul>
+            {% for service in top_5_services %}
+            <li>
+                <div class="flex" style="display: flex; justify-content: space-between;">
+                    <div>
+                        <a href="/services/{{service.id}}">
+                            {{service.name}}
+                        </a>
+                    </div>
+                    <div>
+                            {{service.price_hour}}€/hour
+                    </div>
+                </div>
+
+            </li>
+            {% endfor %}
+            <div>
+            </div>
 {% endblock %}

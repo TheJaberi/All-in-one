@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
             name='Company',
             fields=[
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('field', models.CharField(choices=[('Air Conditioner', 'Air Conditioner'), ('All in One', 'All in One'), ('Carpentry', 'Carpentry'), ('Electricity', 'Electricity'), ('Gardening', 'Gardening'), ('Home Machines', 'Home Machines'), ('House Keeping', 'House Keeping'), ('Interior Design', 'Interior Design'), ('Locks', 'Locks'), ('Painting', 'Painting'), ('Plumbing', 'Plumbing'), ('Water Heaters', 'Water Heaters')], max_length=70)),
+                ('field', models.CharField(choices=[('Air Conditioner', 'Air Conditioner'), ('All In One', 'All In One'), ('Carpentry', 'Carpentry'), ('Electricity', 'Electricity'), ('Gardening', 'Gardening'), ('Home Machines', 'Home Machines'), ('House Keeping', 'House Keeping'), ('Interior Design', 'Interior Design'), ('Locks', 'Locks'), ('Painting', 'Painting'), ('Plumbing', 'Plumbing'), ('Water Heaters', 'Water Heaters')], max_length=70)),
                 ('rating', models.IntegerField(default=0, validators=[django.core.validators.MaxValueValidator(5), django.core.validators.MinValueValidator(0)])),
             ],
         ),
