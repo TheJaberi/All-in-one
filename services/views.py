@@ -18,7 +18,25 @@ def index(request, id):
 
 
 def create(request):
-    return render(request, 'services/create.html', {})
+    if not request.user.is_company:
+        return redirect('/')
+    if request.method == 'POST':
+        # print(f'hello request "{request.POST}"')
+        form = CreateNewService(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data['name']
+            description = form.cleaned_data['description']
+            price_hour = form.cleaned_data['price_hour']
+            field = form.cleaned_data['field']
+            company = Company.objects.get(user=request.user)
+            Service.objects.create(
+                name=title, description=description, price_hour=price_hour, field=field, company=company)
+            return HttpResponseRedirect('/services/')
+        elif form.errors:
+            return render(request, 'services/create.html', {'form': form})
+    else:
+        form = CreateNewService()
+        return render(request, 'services/create.html', {'form': form})
 
 
 def service_field(request, field):

@@ -12,10 +12,23 @@ class CreateNewService(forms.Form):
 
     def __init__(self, *args, choices='', ** kwargs):
         super(CreateNewService, self).__init__(*args, **kwargs)
-        # adding choices to fields
-        if choices:
-            self.fields['field'].choices = choices
         # adding placeholders to form fields
+        self.fields['field'].choices = [('Air Conditioner', 'Air Conditioner'),
+                                                     ('All in One', 'All in One'),
+                                                     ('Carpentry', 'Carpentry'),
+                                                     ('Electricity',
+                                                      'Electricity'),
+                                                     ('Gardening', 'Gardening'),
+                                                     ('Home Machines',
+                                                      'Home Machines'),
+                                                     ('House Keeping',
+                                                      'House Keeping'),
+                                                     ('Interior Design',
+                                                      'Interior Design'),
+                                                     ('Locks', 'Locks'),
+                                                     ('Painting', 'Painting'),
+                                                     ('Plumbing', 'Plumbing'),
+                                                     ('Water Heaters', 'Water Heaters')]
         self.fields['name'].widget.attrs['placeholder'] = 'Enter Service Name'
         self.fields['description'].widget.attrs['placeholder'] = 'Enter Description'
         self.fields['price_hour'].widget.attrs['placeholder'] = 'Enter Price per Hour'
