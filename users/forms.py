@@ -17,10 +17,12 @@ class CustomerSignUpForm(UserCreationForm):
     username = forms.CharField(
         max_length=30,
         label="Username",
+        widget= forms.TextInput(attrs={'placeholder': 'Enter username'}),
         help_text="Enter your desired username. Max 30 characters."
     )
     email = forms.EmailField(
         validators=[validate_email],
+        widget= forms.TextInput(attrs={'placeholder': 'Enter email'}),
         label="Email",
         help_text="Enter a valid email address. This will be used for account verification."
     )
@@ -30,7 +32,7 @@ class CustomerSignUpForm(UserCreationForm):
         help_text="Enter your date of birth in the format DD/MM/YYYY."
     )
     password1 = forms.CharField(
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput(attrs={'placeholder': 'Enter password'}),
         label="Password",
         help_text="Enter a strong password. It should be at least 8 characters long and contain letters and numbers.",
         validators=[RegexValidator(
@@ -39,7 +41,7 @@ class CustomerSignUpForm(UserCreationForm):
         )]
     )
     password2 = forms.CharField(
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput(attrs={'placeholder': 'Confirm password'}),
         label="Confirm Password",
         help_text="Enter the same password again for confirmation."
     )

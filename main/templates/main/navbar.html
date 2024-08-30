@@ -19,8 +19,15 @@
             </ul>
         </li>
         
-        {% if user.is_authenticated %}
+
+        {% if user.is_customer %}
+            <li><a href="/customer/{{ request.user.username }}">Profile</a></li>
+        {% elif user.is_company %}
             <li><a href="/company/{{ request.user.username }}">Profile</a></li>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            <!-- <li><a href="/company/{{ request.user.username }}">Profile</a></li> -->
             <li><a href="/logout">Logout</a></li>
         {% else %}
             <li><a href="/login">Login</a></li>
