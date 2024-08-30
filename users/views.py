@@ -23,7 +23,7 @@ def Company_signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('login')
+            return redirect('/')
         else:
             messages.error(request, 'Please correct the error below.')
     else:

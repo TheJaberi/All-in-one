@@ -12,23 +12,28 @@ class CreateNewService(forms.Form):
 
     def __init__(self, *args, choices='', ** kwargs):
         super(CreateNewService, self).__init__(*args, **kwargs)
+        # adding choices to fields
+        if choices:
+            if choices.lower() == 'all in one':
+                choices2 = (('Air Conditioner', 'Air Conditioner'),
+                                                        ('Carpentry', 'Carpentry'),
+                                                        ('Electricity',
+                                                        'Electricity'),
+                                                        ('Gardening', 'Gardening'),
+                                                        ('Home Machines',
+                                                        'Home Machines'),
+                                                        ('House Keeping',
+                                                        'House Keeping'),
+                                                        ('Interior Design',
+                                                        'Interior Design'),
+                                                        ('Locks', 'Locks'),
+                                                        ('Painting', 'Painting'),
+                                                        ('Plumbing', 'Plumbing'),
+                                                        ('Water Heaters', 'Water Heaters'))
+            else:
+                choices2 = [(choices, choices)]
+            self.fields['field'].choices = choices2
         # adding placeholders to form fields
-        self.fields['field'].choices = [('Air Conditioner', 'Air Conditioner'),
-                                                     ('All In One', 'All In One'),
-                                                     ('Carpentry', 'Carpentry'),
-                                                     ('Electricity',
-                                                      'Electricity'),
-                                                     ('Gardening', 'Gardening'),
-                                                     ('Home Machines',
-                                                      'Home Machines'),
-                                                     ('House Keeping',
-                                                      'House Keeping'),
-                                                     ('Interior Design',
-                                                      'Interior Design'),
-                                                     ('Locks', 'Locks'),
-                                                     ('Painting', 'Painting'),
-                                                     ('Plumbing', 'Plumbing'),
-                                                     ('Water Heaters', 'Water Heaters')]
         self.fields['name'].widget.attrs['placeholder'] = 'Enter Service Name'
         self.fields['description'].widget.attrs['placeholder'] = 'Enter Description'
         self.fields['price_hour'].widget.attrs['placeholder'] = 'Enter Price per Hour'
