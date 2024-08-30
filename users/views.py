@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, alogin
+from django.contrib.auth import login, authenticate, hashers
 from django.contrib import messages
 from .forms import CustomerSignUpForm, CompanySignUpForm, UserLoginForm
+from .models import User  
 
 def Customer_signup_view(request):
     if request.method == 'POST':
@@ -37,12 +38,17 @@ def Login_view(request):
             # email = "lammah"
             password = form.cleaned_data.get('password')
             user = authenticate(request, username=email, password=password)
-            print(user, email, password)
             if user is not None:
                 login(request, user)
                 return redirect('/')
             else:
-                user = authenticate(request, email=email, password=password)
+                try:
+                    user = User.objects.get(email=email)
+                    if not hashers.check_password(password, user.password):
+                        user = None
+                except User.DoesNotExist:
+                    user = None
+                
                 if user is not None:
                     login(request, user)
                     return redirect('/')
