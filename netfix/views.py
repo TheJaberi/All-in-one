@@ -9,8 +9,11 @@ def home(request):
 
 
 def customer_profile(request):
-    pass
+    # fetches the customer user and all of the services available by it
+    user = User.objects.get(username=request.user)
+    services = Service.objects.filter(customer=user).order_by("-date")
 
+    return render(request, 'users/profile.html', {'user': user, 'services': services})
 
 def company_profile(request, name):
     # fetches the company user and all of the services available by it

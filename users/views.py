@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, alogin
 from django.contrib import messages
 from .forms import CustomerSignUpForm, CompanySignUpForm, UserLoginForm
 
@@ -34,13 +34,21 @@ def Login_view(request):
         form = UserLoginForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data.get('email')
+            # email = "lammah"
             password = form.cleaned_data.get('password')
-            user = authenticate(request, email=email, password=password)
+            user = authenticate(request, username=email, password=password)
+            print(user, email, password)
             if user is not None:
                 login(request, user)
-                return redirect('login')
+                return redirect('/')
             else:
-                messages.error(request, 'Invalid email or password.')
+                user = authenticate(request, email=email, password=password)
+                if user is not None:
+                    login(request, user)
+                    return redirect('/')
+                else:
+                    messages.error(request, 'Invalid email or password.')
+                
     else:
         form = UserLoginForm()
     return render(request, 'users/login.html', {'form': form})

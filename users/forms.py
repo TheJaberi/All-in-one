@@ -115,8 +115,8 @@ class CompanySignUpForm(UserCreationForm):
         return user
 
 class UserLoginForm(forms.Form):
-    email = forms.EmailField(widget=forms.TextInput(
-        attrs={'placeholder': 'Enter Email'}))
+    email = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'Enter Email or password'}))
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password'}))
 
