@@ -13,11 +13,16 @@ def service_list(request):
 
 
 def index(request, id):
-    service = Service.objects.get(id=id)
-    return render(request, 'services/single_service.html', {'service': service})
-
+    try:
+        service = Service.objects.get(id=id)
+        return render(request, 'services/single_service.html', {'service': service})
+    except Service.DoesNotExist:
+        return redirect('/')
 
 def create(request):
+    if not request.user.is_authenticated:
+        return redirect('/login')
+    
     if not request.user.is_company:
         return redirect('/')
     
@@ -50,6 +55,9 @@ def service_field(request, field):
 
 
 def request_service(request, id):
+    if not request.user.is_authenticated:
+        return redirect('/login')
+
     if request.method == 'POST':
         form = RequestServiceForm(request.POST)
         if form.is_valid():
