@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from users.models import User, Company, Customer
 from services.models import Service, Request_service
@@ -24,7 +24,14 @@ def customer_profile(request, name):
             new_price = price * hours
             service.new_price = new_price
             service.date += timedelta(hours=3)
-        return render(request, 'users/profile.html', {'user': user, 'services': services})
+        
+                
+        age = 0
+        if user.is_customer:
+            birth_date = Customer.objects.get(user=user).birth
+            current_date = datetime.today()
+            age = current_date.year - birth_date.year - ((current_date.month, current_date.day) < (birth_date.month, birth_date.day))
+        return render(request, 'users/profile.html', {'user': user, 'services': services, 'age': age})
     except User.DoesNotExist:
         return redirect('/')
 
