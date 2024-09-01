@@ -13,6 +13,8 @@ def customer_profile(request, name):
     try:
         # fetches the customer user and all of the services available by it
         user = User.objects.get(username=name)
+        if user.is_company:
+            return redirect('/')
         services = Request_service.objects.filter(
             customer=Customer.objects.get(user=user)).order_by("-date")
         # Calculate the new price for each service
