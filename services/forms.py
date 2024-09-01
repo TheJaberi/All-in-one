@@ -42,4 +42,17 @@ class CreateNewService(forms.Form):
 
 
 class RequestServiceForm(forms.Form):
-    pass
+    address = forms.CharField(max_length=40)
+    service_hours = forms.IntegerField(min_value=1, max_value=24)
+    
+    def __init__(self, *args, **kwargs):
+        super(RequestServiceForm, self).__init__(*args, **kwargs)
+        self.fields['address'].widget.attrs['placeholder'] = 'Enter Address'
+        self.fields['service_hours'].widget.attrs['placeholder'] = 'Enter Service Hours'
+        self.fields['address'].widget.attrs['autocomplete'] = 'off'
+        self.fields['service_hours'].widget.attrs['autocomplete'] = 'off'
+        self.fields['address'].widget.attrs['style'] = 'width: 100%'
+        self.fields['service_hours'].widget.attrs['style'] = 'width: 100%'
+
+
+

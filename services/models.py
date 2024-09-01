@@ -40,6 +40,8 @@ class Request_service(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now=True, null=False)
     status = models.BooleanField(default=False)
-
+    address = models.CharField(max_length=40)
+    service_hours = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(24)])
+    
     def __str__(self):
         return self.service.name
