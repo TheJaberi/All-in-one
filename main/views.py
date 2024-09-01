@@ -22,8 +22,6 @@ def home(request):
     # Sort the list based on the position
     top_5_services.sort(key=lambda s: name_to_position[s.name])
 
-    print(top_5_services)
-
     if request.user.is_authenticated:
         return render(request, "main/home.html", {"user": request.user, "top_5_services": top_5_services})
     else :
