@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from datetime import timedelta
 
 from users.models import User, Company, Customer
 from services.models import Service, Request_service
@@ -13,6 +14,13 @@ def customer_profile(request, name):
     user = User.objects.get(username=name)
     services = Request_service.objects.filter(
         customer=Customer.objects.get(user=user)).order_by("-date")
+    # Calculate the new price for each service
+    for service in services:
+        price = service.service.price_hour
+        hours = service.service_hours
+        new_price = price * hours
+        service.new_price = new_price
+        service.date += timedelta(hours=3)
     return render(request, 'users/profile.html', {'user': user, 'services': services})
 
 def company_profile(request, name):
