@@ -55,11 +55,15 @@ def request_service(request, id):
         if form.is_valid():
             service = Service.objects.get(id=id)
             customer = Customer.objects.get(user=request.user)
+            address = form.cleaned_data['address']
+            service_hours = form.cleaned_data['service_hours']
             Request_service.objects.create(
-                service=service, customer=customer)
+                service=service, customer=customer, address=address, service_hours=service_hours)
             return HttpResponseRedirect('/services/')
         else:
             return render(request, 'services/request_service.html', {'form': form})
-    # get service details
-    service = Service.objects.get(id=id)
-    return render(request, 'services/request_service.html', {'service': service})
+    else:
+        form = RequestServiceForm()
+        # get service details
+        service = Service.objects.get(id=id)
+        return render(request, 'services/request_service.html', {'form': form, 'service': service})
