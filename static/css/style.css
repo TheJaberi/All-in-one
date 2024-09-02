@@ -249,6 +249,12 @@ pre {
 
 /* ===================================== Choose user type ======================================= */
 
+.register {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  
+}
 .choice_text {
   text-shadow: 0px 0px 1px #e02a21;
   color: black;
@@ -258,7 +264,9 @@ pre {
 }
 
 .choice {
-  display: inline-grid;
+  display: inline-block;
+  margin: auto;
+  /* margin: 5px; */
 }
 
 .img {
