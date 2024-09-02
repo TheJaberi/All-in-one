@@ -31,6 +31,12 @@ def customer_profile(request, name):
             birth_date = Customer.objects.get(user=user).birth
             current_date = datetime.today()
             age = current_date.year - birth_date.year - ((current_date.month, current_date.day) < (birth_date.month, birth_date.day))
+        
+        if age < 0:
+            age = "You are not born yet"
+        else:
+            age = "You are " + str(age) + " years old"
+            
         return render(request, 'users/profile.html', {'user': user, 'services': services, 'age': age})
     except User.DoesNotExist:
         return redirect('/')
